@@ -13,3 +13,12 @@ lora_i = lorasignal(:,1);
 lora_q = lorasignal(:,2);
 
 lora_comb = lora_i + 1i*lora_q;
+
+% Normalizing the Signal
+
+lora_comb_norm = lora_comb ./ max(abs(lora_comb));
+
+% Calculate Instantaneous Frequency
+
+phase = unwrap(angle(lora_comb_norm));
+instantaneousFrequency = [0; diff(phase)] * fs / (2*pi);
